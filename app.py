@@ -2,6 +2,21 @@ import streamlit as st
 import pandas as pd
 import joblib
 from prophet.plot import plot_plotly
+from prophet import Prophet
+
+def retrain_and_save_model(data_path, model_path):
+    # Load ulang data historis
+    df = pd.read_csv(data_path)
+    df['ds'] = pd.to_datetime(df['ds'])  # pastikan kolom tanggal dalam format datetime
+    df['y'] = df['y'].astype(float)
+
+    # Latih model
+    model = Prophet()
+    model.fit(df)
+
+    # Simpan model
+    joblib.dump(model, model_path)
+    return model
 
 st.title("Prediksi Kunjungan Pasien")
 
