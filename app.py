@@ -3,11 +3,15 @@ import pandas as pd
 import joblib
 from prophet.plot import plot_plotly
 
-# Judul
 st.title("Prediksi Kunjungan Pasien")
 
 # Load model
 model = joblib.load('model_kunjungan_prophet.pkl')
+
+# Validasi apakah model sudah dilatih
+if not hasattr(model, 'history') or model.history is None or model.history.empty:
+    st.error("Model belum dilatih. Silakan latih model terlebih dahulu sebelum digunakan.")
+    st.stop()
 
 # Input jumlah hari ke depan untuk prediksi
 periode = st.slider("Prediksi untuk berapa hari ke depan?", min_value=7, max_value=90, value=30)
@@ -26,5 +30,6 @@ st.dataframe(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(periode))
 st.subheader("Grafik Prediksi")
 fig = plot_plotly(model, forecast)
 st.plotly_chart(fig)
-st.write(forecast.head())
 
+# Debug kecil (opsional)
+st.write(forecast.head())
