@@ -46,6 +46,3 @@ st.dataframe(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(periode))
 st.subheader("Grafik Prediksi")
 fig = plot_plotly(model, forecast)
 st.plotly_chart(fig)
-
-# Debug kecil (opsional)
-st.write(forecast.head())
