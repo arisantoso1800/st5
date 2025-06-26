@@ -4,3 +4,4 @@ scikit-learn
 joblib
 prophet
 numpy
+plotly
