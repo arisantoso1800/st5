@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 from prophet.plot import plot_plotly
 from prophet import Prophet
+import plotly.graph_objects as go
 
 def retrain_and_save_model(data_path, model_path):
     # Load ulang data historis
